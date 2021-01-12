@@ -1,0 +1,14 @@
+// app global css in SCSS form
+
+.paginaAtual.q-item--active {
+    color: white;
+    background: $primary;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}

@@ -1,0 +1,21 @@
+
+const routes = [
+  {
+    path: '/',
+    component: () => import('layouts/Layout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Dashboard.vue'), name: 'Dashboard' },
+      { path: 'quiosque', component: () => import('pages/Quiosque.vue'), name: 'Quiosque' },
+      { path: 'quiosque/:idQuiosque/recolhe/:idQuiosqueRecolhe', component: () => import('pages/QuiosqueRecolhe.vue'), name: 'QuiosqueRecolhe' }
+    ]
+  },
+
+  // Always leave this as last one,
+  // but you can also remove it
+  {
+    path: '*',
+    component: () => import('pages/Error404.vue')
+  }
+]
+
+export default routes
