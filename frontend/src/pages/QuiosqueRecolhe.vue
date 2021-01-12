@@ -52,8 +52,8 @@
                           @click="captureImage(cadeira, 'midia')">
                   </q-btn>
                 </div>
-                <div class="col-12 q-pa-sm" v-show="cadeira.midia">
-                  <img class="full-width" :src="cadeira.midia">
+                <div class="col-12 q-pa-sm" v-if="cadeira.midia">
+                  <img class="full-width" :src="'data:image/' + cadeira.midia.format + ';base64,' + cadeira.midia.base64String">
                 </div>
                 <div class="col-12">
                   <q-list dense>
@@ -176,9 +176,10 @@ export default {
     submit () {
       const vm = this
       const payload = JSON.parse(JSON.stringify(vm.quiosqueRecolhe))
+      const cadeirasSemMidia = payload.cadeiras.filter(x => !x.midia)
 
       // Verifica se todas as cadeiras possuem foto
-      if (payload.cadeiras.filter(x => !x.midia).length === 0) {
+      if (cadeirasSemMidia.length === 0) {
         // Verifica se o checklist foi preenchido
         if (vm.checkList.filter(x => !x.check).length === 0) {
           payload.cadeiras.map((x) => {
@@ -206,7 +207,7 @@ export default {
                         if (quiosquesRecolhesCadeiras.length === (index + 1)) {
                           vm.$q.notify({
                             type: 'positive',
-                            message: 'Recolhe finaliza com sucesso!',
+                            message: 'Recolhe finalizado com sucesso!',
                             progress: true,
                             position: 'top'
                           })
@@ -265,19 +266,21 @@ export default {
         // Caso o usuário não tenha enviado todas as fotos
         vm.$q.notify({
           type: 'negative',
-          message: 'Por favor, verifique se todas as cadeiras possuem foto.',
+          message: 'As seguintes cadeiras estão sem foto do visor: ' + cadeirasSemMidia.map(x => x.identificacao).join(', ') + '.',
           progress: true,
           position: 'top'
         })
       }
     },
     async captureImage (model, field) {
+      const vm = this
       const image = await Camera.getPhoto({
         quality: 100,
         allowEditing: true,
         resultType: CameraResultType.Base64
       })
       model[field] = image
+      vm.$forceUpdate()
     },
     base64ToBlob (base64Data, contentType = '', sliceSize = 512) {
       const byteCharacters = atob(base64Data)

@@ -28,9 +28,13 @@
             Iniciar Recolhe
           </q-btn>
         </q-card-actions>
+        <q-card-section class="bg-primary text-white">
+          <div class="text-h6">{{ quiosque.quiosque }}</div>
+          <div class="text-subtitle2">Cadeiras: {{ quiosque.cadeiras.map(c => c.identificacao).join(', ') }}</div>
+        </q-card-section>
       </q-card>
     </q-list>
-    <!-- <img src="http://localhost:3000/api/v1/midia/QUIOSQUE_RECOLHE_CADEIRA/16"> -->
+    <img src="http://localhost:3000/public/uploads/midia/quiosque/recolhe/cadeira/48.png">
   </q-page>
 </template>
 
@@ -48,7 +52,7 @@ export default {
 
       // Busca os quiosques e suas cadeiras
       vm.$q.loading.show()
-      vm.$service.quiosqueCadeira.getAll()
+      vm.$service.quiosque.getAll()
         .then((response) => {
           vm.quiosques = vm.$service.responseDecode(response.data)
         }).catch((error) => {
