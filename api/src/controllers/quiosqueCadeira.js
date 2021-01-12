@@ -1,49 +1,5 @@
 const db = require('../config/database')
 
-exports.getAll = async (req, res) => {
-
-  const query = {
-    text: '\
-      Select\
-        q.idquiosque as "idQuiosque"\
-        ,q.descricao as "quiosque"\
-        ,coalesce((\
-          Select	json_agg(\
-                    json_build_object(\
-                       ' + "'idCadeira'" + ', c.idcadeira,\
-                      ' + "'identificacao'" + ', c.identificacao\
-                    )\
-                    Order by  qc.ordem\
-                  )\
-          From    quiosquecadeira qc\
-                  inner join cadeira c on (c.idcadeira = qc.idcadeira)\
-          Where   qc.idquiosque = q.idquiosque\
-        ), ' + "'[]'" + ') as cadeiras\
-      From\
-        quiosque q\
-    ',
-    values: []
-  }
-
-  await db.query(query, (error, response) => {
-    if (error) {
-      console.error(error)
-
-      // Retorna erro
-      res.status(400).send({
-        message: 'Erro ao localizar o(s) quiosque(s) cadeira(s)!',
-        error: error
-      })
-
-    } else {
-
-      // Retorna os resultados
-      res.status(200).send(responseEncode(response.rows))
-    }
-  })
-
-}
-
 exports.create = async (req, res) => {
 
   // Recebe um array de objetos contendo os quiosques cadeiras para inserção

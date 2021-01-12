@@ -3,6 +3,7 @@ const crypto = require('crypto-js')
 const cors = require('cors')
 const app = express()
 const jwt = require('jsonwebtoken')
+const path = require('path')
 
 global.getMidiaDetailsByType = (type) => {
   const details = {}
@@ -11,7 +12,7 @@ global.getMidiaDetailsByType = (type) => {
       details.table = 'quiosquerecolhecadeira'
       details.columnId = 'idquiosquerecolhecadeira'
       details.columnMidiaPath = 'valorcadeiramidiapath'
-      details.uploadPath = 'uploads/midia/quiosque/recolhe/cadeira/'
+      details.uploadPath = 'public/uploads/midia/quiosque/recolhe/cadeira/'
       break;
     }
   }
@@ -73,6 +74,7 @@ var corsOptions = {
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors(corsOptions))
+app.use('/public', express.static('public'))
 
 // routes
 const rUsuario = require('./routes/usuario')

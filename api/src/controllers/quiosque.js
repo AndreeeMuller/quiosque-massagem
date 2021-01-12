@@ -1,5 +1,73 @@
 const db = require('../config/database')
 
+exports.getAll = async (req, res) => {
+
+  const query = {
+    text: `\
+      Select\
+        q.idquiosque as "idQuiosque"\
+        ,q.descricao as "quiosque"\
+        ,coalesce((\
+          Select	json_agg(\
+                    json_build_object(\
+                       'idCadeira', c.idcadeira,\
+                      'identificacao', c.identificacao\
+                    )\
+                    Order by  qc.ordem\
+                  )\
+          From    quiosquecadeira qc\
+                  inner join cadeira c on (c.idcadeira = qc.idcadeira)\
+          Where   qc.idquiosque = q.idquiosque\
+        ), '[]') as cadeiras\
+        ,coalesce((\
+          Select  json_agg(\
+                    json_build_object(\
+                      'idQuiosqueRecolhe', qr2.idquiosquerecolhe,\
+                      'dataInicio', qr2.datainicio::varchar,\
+                      'dataInicioLabel', to_char(qr2.datainicio, 'dd/MM/yyyy'),\
+                      'horaInicio', qr2.horainicio,\
+                      'dataFim', qr2.datainicio::varchar,\
+                      'dataFimLabel', to_char(qr2.datafim, 'dd/MM/yyyy'),\
+                      'horaFim', qr2.horafim\
+                    )\
+                  )\
+          From    quiosquerecolhe qr2\
+          Where	  ( /* # Recolhe com pendência # */\
+                    /* # Falta comprovante # */\
+                    qr2.comprovantemidiapath is null\
+                    or not exists ( /* # Não realizou a contagem # */\
+                      Select	NULL\
+                      From	  quiosquerecolhecadeira qrc3\
+                              inner join quiosquerecolhecadeiracontagem qrcc3 on (qrcc3.idquiosquerecolhecadeira = qrc3.idquiosquerecolhecadeira)\
+                      Where 	qrc3.idquiosquerecolhe = qr2.idquiosquerecolhe\
+                    )\
+                  )\
+        ), '[]') as recolhes\
+      From\
+        quiosque q\
+    `,
+    values: []
+  }
+
+  await db.query(query, (error, response) => {
+    if (error) {
+      console.error(error)
+
+      // Retorna erro
+      res.status(400).send({
+        message: 'Erro ao localizar o(s) quiosque(s) cadeira(s)!',
+        error: error
+      })
+
+    } else {
+
+      // Retorna os resultados
+      res.status(200).send(responseEncode(response.rows))
+    }
+  })
+
+}
+
 exports.create = async (req, res) => {
 
   // Recebe um array de objetos contendo os quiosques para inserção
