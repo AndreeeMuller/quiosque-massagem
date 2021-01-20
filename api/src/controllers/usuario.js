@@ -1,5 +1,28 @@
 const db = require('../config/database')
 
+exports.teste = async (req, res) => {
+  try {
+    const query = {
+      text: 'Select * From usuario',
+      values: []
+    }
+    await db.query(query, (error, response) => {
+      res.status(200).send({
+        message: 'API Funcionando Corretamente!',
+        usuarios: response ? response.rows : [],
+        separador: '-------------------------------------------------------------------------------------------------------------------------------------------',
+        error: error,
+        response: response
+      });
+    });
+  } catch (error) {
+    res.status(400).send({
+      message: 'API Funcionando Corretamente! Porém com erro:',
+      error: error
+    });
+  }
+}
+
 exports.create = async (req, res) => {
 
   // Recebe um array de objetos contendo os usuários para inserção

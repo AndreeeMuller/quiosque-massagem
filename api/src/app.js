@@ -62,11 +62,7 @@ global.tokenValidation = function(req, res, next) {
 // Define as URLs que tem acesso à api
 var corsOptions = {
   origin: function (origin, callback) {
-    if (process.env.CORS_URLS_LIST.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Origem não permitida pelo CORS!'))
-    }
+    callback(null, true)
   }
 }
 
