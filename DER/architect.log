@@ -749,3 +749,590 @@ NOT DEFERRABLE
 48925 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
 48926 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
 48928 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+11656901 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@953ea2]
+12888645 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE SEQUENCE seq_idusuario
+12888652 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE Usuario (
+                idUsuario INTEGER NOT NULL DEFAULT nextval('seq_idusuario'),
+                usuario VARCHAR(64) NOT NULL,
+                nome VARCHAR(256) NOT NULL,
+                senha CHAR(32) NOT NULL,
+                dataInclusao DATE NOT NULL,
+                horaInclusao CHAR(10) NOT NULL,
+                dataAlteracao DATE NOT NULL,
+                horaAlteracao CHAR(10) NOT NULL,
+                CONSTRAINT usuario_pk PRIMARY KEY (idUsuario)
+)
+12888653 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE Usuario IS 'Tabela com os usuários do sistema'
+12888653 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.usuario IS 'Usuário para realizar o login no sistema e gerar o token posteriormente, deverá ser único.'
+12888653 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.nome IS 'Nome do usuário. Ex: Administrador'
+12888653 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.senha IS 'Senha em formato MD5 com adicionais de secrets e datas.'
+12888654 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.dataInclusao IS 'Data inclusão do registro no banco.'
+12888654 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.horaInclusao IS 'Hora inclusão do registro no banco.'
+12888654 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.dataAlteracao IS 'Data alteração do registro no banco.'
+12888654 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.horaAlteracao IS 'Hora alteração do registro no banco.'
+12888655 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idusuario OWNED BY Usuario.idUsuario
+12888655 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idcadeira
+12888655 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE Cadeira (
+                idCadeira INTEGER NOT NULL DEFAULT nextval('seq_idcadeira'),
+                identificacao INTEGER NOT NULL,
+                CONSTRAINT cadeira_pk PRIMARY KEY (idCadeira)
+)
+12888655 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE Cadeira IS 'Armazena as cadeiras existentes'
+12888656 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Cadeira.identificacao IS 'Identificação da Cadeira. Ex: 255, 333, 169, 160'
+12888656 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idcadeira OWNED BY Cadeira.idCadeira
+12888656 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosque
+12888656 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE Quiosque (
+                idQuiosque INTEGER NOT NULL DEFAULT nextval('seq_idquiosque'),
+                descricao VARCHAR(256) NOT NULL,
+                CONSTRAINT quiosque_pk PRIMARY KEY (idQuiosque)
+)
+12888657 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE Quiosque IS 'Armazena os quiosques existentes'
+12888657 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Quiosque.descricao IS 'Decrição do Quiosque. Ex: Shopping Palladium'
+12888657 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosque OWNED BY Quiosque.idQuiosque
+12888657 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhe
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolhe (
+                idQuiosqueRecolhe INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhe'),
+                idQuiosque INTEGER NOT NULL,
+                dataInicio DATE NOT NULL,
+                horaInicio VARCHAR(8) NOT NULL,
+                dataFim DATE,
+                horaFim VARCHAR(8),
+                observacao VARCHAR(1024),
+                comprovanteMidiaPath VARCHAR(1024),
+                CONSTRAINT quiosquerecolhe_pk PRIMARY KEY (idQuiosqueRecolhe)
+)
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolhe IS 'Cabeçalho do Recolhe com informações base'
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.dataInicio IS 'Data em que foi iniciado o Recolhe'
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.horaInicio IS 'Hora em que foi iniciado o recolhe.'
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.dataFim IS 'Data em que foi finalizado o recolhe.'
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.horaFim IS 'hora em que foi finalizado o recolhe.'
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.observacao IS 'Observação sobre o recolhe, caso há.'
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.comprovanteMidiaPath IS 'Define o caminho da midia referente ao comprovante do recolhe'
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhe OWNED BY QuiosqueRecolhe.idQuiosqueRecolhe
+12888658 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhemidia
+12888659 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolheMidia (
+                idQuiosqueRecolheMidia INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhemidia'),
+                idQuiosqueRecolhe INTEGER NOT NULL,
+                descricao VARCHAR(256) NOT NULL,
+                path VARCHAR(1024),
+                CONSTRAINT quiosquerecolhemidia_pk PRIMARY KEY (idQuiosqueRecolheMidia)
+)
+12888659 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolheMidia IS 'Documentos/fotos sobre o recolhe do quiosque'
+12888659 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheMidia.descricao IS 'Descrição sobre a midia'
+12888659 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheMidia.path IS 'Define o caminho da midia referente ao recolhe do quiosque'
+12888659 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhemidia OWNED BY QuiosqueRecolheMidia.idQuiosqueRecolheMidia
+12888660 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhecadeira
+12888660 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolheCadeira (
+                idQuiosqueRecolheCadeira INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhecadeira'),
+                idQuiosqueRecolhe INTEGER NOT NULL,
+                idCadeira INTEGER NOT NULL,
+                valorCadeira NUMERIC(15,2) NOT NULL,
+                observacao VARCHAR(1024),
+                valorEmperrado NUMERIC(15,2),
+                valorCadeiraMidiaPath VARCHAR(1024),
+                CONSTRAINT quiosquerecolhecadeira_pk PRIMARY KEY (idQuiosqueRecolheCadeira)
+)
+12888660 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolheCadeira IS 'Armazena as informações da cadeira do recolhe no quiosque'
+12888660 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeira.valorCadeira IS 'Valor que foi capturado da cadeira no recolhe. Ex: 1255.00, 9999.00, 1.00, 15.00'
+12888660 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeira.observacao IS 'Observação sobre a cadeira durante o recolhe, caso há.'
+12888661 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeira.valorEmperrado IS 'Valor emperrado na cadeira durante o recolhe. Ex: 70.00, 85.00, 10.00, 20.00...'
+12888661 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeira.valorCadeiraMidiaPath IS 'Define o caminho da midia referente ao visor da cadeira.'
+12888661 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhecadeira OWNED BY QuiosqueRecolheCadeira.idQuiosqueRecolheCadeira
+12888661 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhecadeiramidia
+12888661 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolheCadeiraMidia (
+                idQuiosqueRecolheCadeiraMidia INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhecadeiramidia'),
+                idQuiosqueRecolheCadeira INTEGER NOT NULL,
+                descricao VARCHAR(256) NOT NULL,
+                path VARCHAR(1024),
+                CONSTRAINT quiosquerecolhecadeiramidia_pk PRIMARY KEY (idQuiosqueRecolheCadeiraMidia)
+)
+12888662 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolheCadeiraMidia IS 'Documentos/fotos sobre o a cadeira no recolhe do quiosque'
+12888662 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeiraMidia.descricao IS 'Descrição sobre a midia'
+12888662 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeiraMidia.path IS 'Define o caminho da midia referente ao recolhe do quiosque da cadeira'
+12888662 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhecadeiramidia OWNED BY QuiosqueRecolheCadeiraMidia.idQuiosqueRecolheCadeiraMidia
+12888662 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhecadeiracontagem
+12888662 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolheCadeiraContagem (
+                idQuiosqueRecolheCadeiraContagem INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhecadeiracontagem'),
+                idQuiosqueRecolheCadeira INTEGER NOT NULL,
+                valorMoeda NUMERIC(15,2) NOT NULL,
+                valorTotal NUMERIC(15,2) NOT NULL,
+                CONSTRAINT quiosquerecolhecadeiracontagem_pk PRIMARY KEY (idQuiosqueRecolheCadeiraContagem)
+)
+12888662 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolheCadeiraContagem IS 'Armazena as notas que uma cadeira recolheu em um determinado quiosque e dia.'
+12888663 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeiraContagem.valorMoeda IS 'Ex: 0.25, 0.50, 1.00, 2.00, 5.00, 10.00, 20.00, 50.00'
+12888663 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeiraContagem.valorTotal IS 'Valor contado. Ex: 70.00, 85.00, 10.00, 20.00...'
+12888663 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhecadeiracontagem OWNED BY QuiosqueRecolheCadeiraContagem.idQuiosqueRecolheCadeiraContagem
+12888663 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquecadeira
+12888663 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueCadeira (
+                idQuiosqueCadeira INTEGER NOT NULL DEFAULT nextval('seq_idquiosquecadeira'),
+                idQuiosque INTEGER NOT NULL,
+                idCadeira INTEGER NOT NULL,
+                ordem INTEGER NOT NULL,
+                CONSTRAINT quiosquecadeira_pk PRIMARY KEY (idQuiosqueCadeira)
+)
+12888664 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueCadeira IS 'Armazena as cadeiras que um quiosque possui.'
+12888664 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueCadeira.ordem IS 'Define a ordem de exibição da cadeira no quiosque (para relatórios e recolhe)'
+12888664 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquecadeira OWNED BY QuiosqueCadeira.idQuiosqueCadeira
+12888664 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueCadeira ADD CONSTRAINT cadeira_quiosquecadeira_fk
+FOREIGN KEY (idCadeira)
+REFERENCES Cadeira (idCadeira)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+12888664 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheCadeira ADD CONSTRAINT cadeira_quiosquerecolhecadeira_fk
+FOREIGN KEY (idCadeira)
+REFERENCES Cadeira (idCadeira)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+12888664 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueCadeira ADD CONSTRAINT quiosque_quiosquecadeira_fk
+FOREIGN KEY (idQuiosque)
+REFERENCES Quiosque (idQuiosque)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+12888665 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolhe ADD CONSTRAINT quiosque_quiosquerecolhe_fk
+FOREIGN KEY (idQuiosque)
+REFERENCES Quiosque (idQuiosque)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+12888665 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheCadeira ADD CONSTRAINT quiosquerecolhe_quiosquerecolhecadeira_fk
+FOREIGN KEY (idQuiosqueRecolhe)
+REFERENCES QuiosqueRecolhe (idQuiosqueRecolhe)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+12888665 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheMidia ADD CONSTRAINT quiosquerecolhe_quiosquerecolhemidia_fk
+FOREIGN KEY (idQuiosqueRecolhe)
+REFERENCES QuiosqueRecolhe (idQuiosqueRecolhe)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+12888665 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheCadeiraContagem ADD CONSTRAINT quiosquerecolhecadeira_quiosquerecolhecadeiranota_fk
+FOREIGN KEY (idQuiosqueRecolheCadeira)
+REFERENCES QuiosqueRecolheCadeira (idQuiosqueRecolheCadeira)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+12888665 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheCadeiraMidia ADD CONSTRAINT quiosquerecolhecadeira_quiosquerecolhecadeiramidia_fk
+FOREIGN KEY (idQuiosqueRecolheCadeira)
+REFERENCES QuiosqueRecolheCadeira (idQuiosqueRecolheCadeira)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+12888668 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :70
+20439716 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.PlayPen  - Drop: I am over dtde=java.awt.dnd.DropTargetDropEvent[source=java.awt.dnd.DropTarget@953ea2]
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+27   [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+45   [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+45   [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+59   [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+1563 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+1575 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+1576 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+1579 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+1585 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+1588 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+1589 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+1591 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+1592 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+9266 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+CREATE SEQUENCE seq_idusuario
+9270 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE Usuario (
+                idUsuario INTEGER NOT NULL DEFAULT nextval('seq_idusuario'),
+                usuario VARCHAR(64) NOT NULL,
+                nome VARCHAR(256) NOT NULL,
+                senha CHAR(32) NOT NULL,
+                dataInclusao DATE NOT NULL,
+                horaInclusao CHAR(10) NOT NULL,
+                dataAlteracao DATE NOT NULL,
+                horaAlteracao CHAR(10) NOT NULL,
+                CONSTRAINT usuario_pk PRIMARY KEY (idUsuario)
+)
+9270 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE Usuario IS 'Tabela com os usuários do sistema'
+9270 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.usuario IS 'Usuário para realizar o login no sistema e gerar o token posteriormente, deverá ser único.'
+9270 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.nome IS 'Nome do usuário. Ex: Administrador'
+9270 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.senha IS 'Senha em formato MD5 com adicionais de secrets e datas.'
+9270 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.dataInclusao IS 'Data inclusão do registro no banco.'
+9270 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.horaInclusao IS 'Hora inclusão do registro no banco.'
+9271 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.dataAlteracao IS 'Data alteração do registro no banco.'
+9271 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Usuario.horaAlteracao IS 'Hora alteração do registro no banco.'
+9271 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idusuario OWNED BY Usuario.idUsuario
+9271 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idcadeira
+9271 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE Cadeira (
+                idCadeira INTEGER NOT NULL DEFAULT nextval('seq_idcadeira'),
+                identificacao INTEGER NOT NULL,
+                CONSTRAINT cadeira_pk PRIMARY KEY (idCadeira)
+)
+9272 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE Cadeira IS 'Armazena as cadeiras existentes'
+9272 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Cadeira.identificacao IS 'Identificação da Cadeira. Ex: 255, 333, 169, 160'
+9272 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idcadeira OWNED BY Cadeira.idCadeira
+9272 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosque
+9272 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE Quiosque (
+                idQuiosque INTEGER NOT NULL DEFAULT nextval('seq_idquiosque'),
+                descricao VARCHAR(256) NOT NULL,
+                CONSTRAINT quiosque_pk PRIMARY KEY (idQuiosque)
+)
+9272 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE Quiosque IS 'Armazena os quiosques existentes'
+9273 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN Quiosque.descricao IS 'Decrição do Quiosque. Ex: Shopping Palladium'
+9273 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosque OWNED BY Quiosque.idQuiosque
+9273 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhe
+9273 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolhe (
+                idQuiosqueRecolhe INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhe'),
+                idQuiosque INTEGER NOT NULL,
+                dataInicio DATE NOT NULL,
+                horaInicio VARCHAR(8) NOT NULL,
+                dataFim DATE,
+                horaFim VARCHAR(8),
+                observacao VARCHAR(1024),
+                comprovanteMidiaPath VARCHAR(1024),
+                CONSTRAINT quiosquerecolhe_pk PRIMARY KEY (idQuiosqueRecolhe)
+)
+9273 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolhe IS 'Cabeçalho do Recolhe com informações base'
+9273 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.dataInicio IS 'Data em que foi iniciado o Recolhe'
+9274 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.horaInicio IS 'Hora em que foi iniciado o recolhe.'
+9274 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.dataFim IS 'Data em que foi finalizado o recolhe.'
+9274 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.horaFim IS 'hora em que foi finalizado o recolhe.'
+9274 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.observacao IS 'Observação sobre o recolhe, caso há.'
+9274 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolhe.comprovanteMidiaPath IS 'Define o caminho da midia referente ao comprovante do recolhe'
+9274 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhe OWNED BY QuiosqueRecolhe.idQuiosqueRecolhe
+9274 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhemidia
+9275 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolheMidia (
+                idQuiosqueRecolheMidia INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhemidia'),
+                idQuiosqueRecolhe INTEGER NOT NULL,
+                descricao VARCHAR(256) NOT NULL,
+                path VARCHAR(1024),
+                CONSTRAINT quiosquerecolhemidia_pk PRIMARY KEY (idQuiosqueRecolheMidia)
+)
+9275 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolheMidia IS 'Documentos/fotos sobre o recolhe do quiosque'
+9275 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheMidia.descricao IS 'Descrição sobre a midia'
+9275 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheMidia.path IS 'Define o caminho da midia referente ao recolhe do quiosque'
+9275 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhemidia OWNED BY QuiosqueRecolheMidia.idQuiosqueRecolheMidia
+9275 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhecadeira
+9276 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolheCadeira (
+                idQuiosqueRecolheCadeira INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhecadeira'),
+                idQuiosqueRecolhe INTEGER NOT NULL,
+                idCadeira INTEGER NOT NULL,
+                valorCadeira NUMERIC(15,2) NOT NULL,
+                observacao VARCHAR(1024),
+                valorEmperrado NUMERIC(15,2),
+                valorCadeiraMidiaPath VARCHAR(1024),
+                CONSTRAINT quiosquerecolhecadeira_pk PRIMARY KEY (idQuiosqueRecolheCadeira)
+)
+9276 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolheCadeira IS 'Armazena as informações da cadeira do recolhe no quiosque'
+9276 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeira.valorCadeira IS 'Valor que foi capturado da cadeira no recolhe. Ex: 1255.00, 9999.00, 1.00, 15.00'
+9276 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeira.observacao IS 'Observação sobre a cadeira durante o recolhe, caso há.'
+9276 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeira.valorEmperrado IS 'Valor emperrado na cadeira durante o recolhe. Ex: 70.00, 85.00, 10.00, 20.00...'
+9276 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeira.valorCadeiraMidiaPath IS 'Define o caminho da midia referente ao visor da cadeira.'
+9276 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhecadeira OWNED BY QuiosqueRecolheCadeira.idQuiosqueRecolheCadeira
+9277 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhecadeiramidia
+9277 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolheCadeiraMidia (
+                idQuiosqueRecolheCadeiraMidia INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhecadeiramidia'),
+                idQuiosqueRecolheCadeira INTEGER NOT NULL,
+                descricao VARCHAR(256) NOT NULL,
+                path VARCHAR(1024),
+                CONSTRAINT quiosquerecolhecadeiramidia_pk PRIMARY KEY (idQuiosqueRecolheCadeiraMidia)
+)
+9277 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolheCadeiraMidia IS 'Documentos/fotos sobre o a cadeira no recolhe do quiosque'
+9277 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeiraMidia.descricao IS 'Descrição sobre a midia'
+9277 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeiraMidia.path IS 'Define o caminho da midia referente ao recolhe do quiosque da cadeira'
+9277 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhecadeiramidia OWNED BY QuiosqueRecolheCadeiraMidia.idQuiosqueRecolheCadeiraMidia
+9278 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquerecolhecadeiracontagem
+9278 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueRecolheCadeiraContagem (
+                idQuiosqueRecolheCadeiraContagem INTEGER NOT NULL DEFAULT nextval('seq_idquiosquerecolhecadeiracontagem'),
+                idQuiosqueRecolheCadeira INTEGER NOT NULL,
+                valorMoeda NUMERIC(15,2) NOT NULL,
+                valorTotal NUMERIC(15,2) NOT NULL,
+                CONSTRAINT quiosquerecolhecadeiracontagem_pk PRIMARY KEY (idQuiosqueRecolheCadeiraContagem)
+)
+9278 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueRecolheCadeiraContagem IS 'Armazena as notas que uma cadeira recolheu em um determinado quiosque e dia.'
+9278 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeiraContagem.valorMoeda IS 'Ex: 0.25, 0.50, 1.00, 2.00, 5.00, 10.00, 20.00, 50.00'
+9278 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueRecolheCadeiraContagem.valorTotal IS 'Valor contado. Ex: 70.00, 85.00, 10.00, 20.00...'
+9278 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquerecolhecadeiracontagem OWNED BY QuiosqueRecolheCadeiraContagem.idQuiosqueRecolheCadeiraContagem
+9278 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE SEQUENCE seq_idquiosquecadeira
+9279 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+CREATE TABLE QuiosqueCadeira (
+                idQuiosqueCadeira INTEGER NOT NULL DEFAULT nextval('seq_idquiosquecadeira'),
+                idQuiosque INTEGER NOT NULL,
+                idCadeira INTEGER NOT NULL,
+                ordem INTEGER NOT NULL,
+                CONSTRAINT quiosquecadeira_pk PRIMARY KEY (idQuiosqueCadeira)
+)
+9279 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON TABLE QuiosqueCadeira IS 'Armazena as cadeiras que um quiosque possui.'
+9279 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+COMMENT ON COLUMN QuiosqueCadeira.ordem IS 'Define a ordem de exibição da cadeira no quiosque (para relatórios e recolhe)'
+9279 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+
+ALTER SEQUENCE seq_idquiosquecadeira OWNED BY QuiosqueCadeira.idQuiosqueCadeira
+9279 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueCadeira ADD CONSTRAINT cadeira_quiosquecadeira_fk
+FOREIGN KEY (idCadeira)
+REFERENCES Cadeira (idCadeira)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+9279 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheCadeira ADD CONSTRAINT cadeira_quiosquerecolhecadeira_fk
+FOREIGN KEY (idCadeira)
+REFERENCES Cadeira (idCadeira)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+9280 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueCadeira ADD CONSTRAINT quiosque_quiosquecadeira_fk
+FOREIGN KEY (idQuiosque)
+REFERENCES Quiosque (idQuiosque)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+9280 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolhe ADD CONSTRAINT quiosque_quiosquerecolhe_fk
+FOREIGN KEY (idQuiosque)
+REFERENCES Quiosque (idQuiosque)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+9280 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheCadeira ADD CONSTRAINT quiosquerecolhe_quiosquerecolhecadeira_fk
+FOREIGN KEY (idQuiosqueRecolhe)
+REFERENCES QuiosqueRecolhe (idQuiosqueRecolhe)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+9280 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheMidia ADD CONSTRAINT quiosquerecolhe_quiosquerecolhemidia_fk
+FOREIGN KEY (idQuiosqueRecolhe)
+REFERENCES QuiosqueRecolhe (idQuiosqueRecolhe)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+9280 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheCadeiraContagem ADD CONSTRAINT quiosquerecolhecadeira_quiosquerecolhecadeiranota_fk
+FOREIGN KEY (idQuiosqueRecolheCadeira)
+REFERENCES QuiosqueRecolheCadeira (idQuiosqueRecolheCadeira)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+9281 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ddl.GenericDDLGenerator  - endStatement: 
+
+ALTER TABLE QuiosqueRecolheCadeiraMidia ADD CONSTRAINT quiosquerecolhecadeira_quiosquerecolhecadeiramidia_fk
+FOREIGN KEY (idQuiosqueRecolheCadeira)
+REFERENCES QuiosqueRecolheCadeira (idQuiosqueRecolheCadeira)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE
+9283 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :70
+563276 [AWT-EventQueue-0] ERROR ca.sqlpower.architect.swingui.KettleDataSourceOptionsPanel  -  The map is: {}

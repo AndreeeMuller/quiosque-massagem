@@ -1,0 +1,4 @@
+gcloud sql connect nomedainstancia --user=nomedousuario -> conecta na instancia
+\l -> lista databases
+\c nomedatabase -> conecta no database
+\q -> desconecta da instancia
