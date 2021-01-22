@@ -277,7 +277,8 @@ export default {
       const image = await Camera.getPhoto({
         quality: 100,
         allowEditing: true,
-        resultType: CameraResultType.Base64
+        resultType: CameraResultType.Base64,
+        format: 'png'
       })
       model[field] = image
       vm.$forceUpdate()

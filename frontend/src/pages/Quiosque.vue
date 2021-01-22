@@ -34,7 +34,7 @@
         </q-card-section>
       </q-card>
     </q-list>
-    <img src="http://localhost:3000/public/uploads/midia/quiosque/recolhe/cadeira/48.png">
+    <!-- <img src="http://quiosquemassagem.jelastic.saveincloud.net/public/uploads/midia/quiosque/recolhe/cadeira/6.png"> -->
   </q-page>
 </template>
 
