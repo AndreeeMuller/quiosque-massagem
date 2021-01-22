@@ -3,7 +3,6 @@ const crypto = require('crypto-js')
 const cors = require('cors')
 const app = express()
 const jwt = require('jsonwebtoken')
-const path = require('path')
 
 global.getMidiaDetailsByType = (type) => {
   const details = {}
@@ -12,7 +11,7 @@ global.getMidiaDetailsByType = (type) => {
       details.table = 'quiosquerecolhecadeira'
       details.columnId = 'idquiosquerecolhecadeira'
       details.columnMidiaPath = 'valorcadeiramidiapath'
-      details.uploadPath = 'public/uploads/midia/quiosque/recolhe/cadeira/'
+      details.uploadPath = __dirname + '/public/uploads/midia/quiosque/recolhe/cadeira/'
       break;
     }
   }
@@ -62,7 +61,11 @@ global.tokenValidation = function(req, res, next) {
 // Define as URLs que tem acesso à api
 var corsOptions = {
   origin: function (origin, callback) {
-    callback(null, true)
+    if (process.env.CORS_URLS_LIST.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Origem não permitida pelo CORS! (' + origin + ')'))
+    }
   }
 }
 
@@ -70,7 +73,7 @@ var corsOptions = {
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors(corsOptions))
-app.use('/public', express.static('public'))
+app.use('/public', express.static(__dirname + '/public'))
 
 // routes
 const rUsuario = require('./routes/usuario')

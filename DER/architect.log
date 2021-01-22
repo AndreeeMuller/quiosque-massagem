@@ -1336,3 +1336,17 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE
 9283 [AWT-EventQueue-0] INFO  ca.sqlpower.architect.swingui.SQLScriptDialog  - The list size is :70
 563276 [AWT-EventQueue-0] ERROR ca.sqlpower.architect.swingui.KettleDataSourceOptionsPanel  -  The map is: {}
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+35   [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+57   [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+58   [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+72   [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+49065 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+49077 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+49079 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+49081 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+49088 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+49091 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+49093 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+49094 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null
+49096 [AWT-EventQueue-0] INFO  ca.sqlpower.sqlobject.SQLTable  - The physical name of the table is: null

@@ -8,6 +8,7 @@ exports.teste = async (req, res) => {
     }
     await db.query(query, (error, response) => {
       res.status(200).send({
+        dirname: __dirname,
         message: 'API Funcionando Corretamente!',
         usuarios: response ? response.rows : [],
         separador: '-------------------------------------------------------------------------------------------------------------------------------------------',
@@ -17,6 +18,7 @@ exports.teste = async (req, res) => {
     });
   } catch (error) {
     res.status(400).send({
+      dirname: __dirname,
       message: 'API Funcionando Corretamente! Porém com erro:',
       error: error
     });
