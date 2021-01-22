@@ -1,6 +1,7 @@
 build/
 # Commonly ignored Node.js files
 node_modules/
+src/public/
 npm-debug.log
 .npm/
 
